@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// const StandaloenTextInput = () => (
+// const StandaloneTextInput = () => (
 //   <div>
 //     <label>
 //       My uncontrolled Input: <input type="text" />
@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 //   </div>
 // );
 
-// const StandaloenTextInput = () => {
+// const StandaloneTextInput = () => {
 //   const [value, setValue] = useState('Hello React');
 
 //   const handleChange = event => setValue(event.target.value);
@@ -27,7 +27,7 @@ import React, { useState } from 'react';
 //   );
 // };
 
-const StandaloenTextInput = () => {
+const StandaloneTextInput = () => {
   const [value, setValue] = useState('Hello React');
 
   const handleChange = event => setValue(event.target.value);
@@ -46,4 +46,4 @@ const StandaloenTextInput = () => {
   );
 };
 
-export default StandaloenTextInput;
+export default StandaloneTextInput;

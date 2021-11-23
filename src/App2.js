@@ -4,17 +4,17 @@ import React, { useState } from 'react';
 // not useful for real applications,
 // but just for the sake of demonstrating uncontrolled/controlled components
 
-import StandaloneTextInput from './Components/StandaloneTextInput';
+import StandaloneTextInput from './components/Controlled/StandaloneTextInput';
 
 // components managed from outside (e.g. App component)
 
-import TextInput from './Components/TextInput';
-import Select from './Components/Select';
-import NumberInput from './Components/NumberInput';
-import Checkbox from './Components/Checkbox';
-import Radio from './Components/Radio';
+import TextInput from './components/Controlled/TextInput';
+import Select from './components/Controlled/Select';
+import NumberInput from './components/Controlled/NumberInput';
+import Checkbox from './components/Controlled/Checkbox';
+import Radio from './components/Controlled/Radio';
 
-const App = () => {
+const App2 = () => {
   const [textInputValue, setTextInputValue] = useState('Hello World');
   const [selectValue, setSelectValue] = useState('grapefruit');
   const [numberInputValue, setNumberInputValue] = useState(0);
@@ -121,4 +121,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App2;
