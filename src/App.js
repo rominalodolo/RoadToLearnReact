@@ -3,10 +3,10 @@ import "./App.css";
 // import Image from "./components/Image.js";
 import { Component } from "react";
 
-const DEFAULT_QUERY = 'redux';
-const PATH_BASE = 'https://hn.algolia.com/api/v1';
-const PATH_SEARCH = '/search';
-const PARAM_SEARCH = 'query=';
+const DEFAULT_QUERY = "redux";
+const PATH_BASE = "https://hn.algolia.com/api/v1";
+const PATH_SEARCH = "/search";
+const PARAM_SEARCH = "query=";
 
 const isSearched = (searchTerm) => (item) =>
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -32,21 +32,25 @@ class App extends Component {
   componentDidMount() {
     const { searchTerm } = this.state;
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
-    .then(response => response.json())
-    .then(result => this.setSearchTopStories(result))
-    .catch(error => error);
+      .then((response) => response.json())
+      .then((result) => this.setSearchTopStories(result))
+      .catch((error) => error);
   }
 
   onDismiss(id) {
     const isNotId = (item) => item.objectID !== id;
-    const updatedList = this.state.list.filter(isNotId);
-    this.setState({ list: updatedList });
+    const updatedHits = this.state.result.hits.filter(isNotId);
+    this.setState({
+      result: { ...this.state.result, hits: updatedHits }
+    });
   }
 
   render() {
     const { searchTerm, result } = this.state;
 
-    if (!result) { return null; }
+    if (!result) {
+      return null;
+    }
 
     return (
       <div className="page">
@@ -55,7 +59,11 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <Table list={result.hits} pattern={searchTerm} onDismiss={this.onDismiss} />
+        <Table
+          list={result.hits}
+          pattern={searchTerm}
+          onDismiss={this.onDismiss}
+        />
       </div>
     );
   }
@@ -74,24 +82,18 @@ const Table = ({ list, pattern, onDismiss }) => (
   <div className="table">
     {list.filter(isSearched(pattern)).map((item) => (
       <div key={item.objectID} className="table-row">
-        <span style={{ width: '40%' }}>
+        <span style={{ width: "40%" }}>
           <a href={item.url}>{item.title}</a>
         </span>
-        <span style={{ width: '30%' }}>
-          {item.author}
-        </span>
-        <span style={{ width: '10%' }}>
-          {item.num_comments}
-        </span>
-        <span style={{ width: '10%' }}>
-          {item.points}
-        </span>
-        <span style={{ width: '10%' }}>
-          <Button 
+        <span style={{ width: "30%" }}>{item.author}</span>
+        <span style={{ width: "10%" }}>{item.num_comments}</span>
+        <span style={{ width: "10%" }}>{item.points}</span>
+        <span style={{ width: "10%" }}>
+          <Button
             onClick={() => onDismiss(item.objectID)}
             className="button-inline"
-            >
-              Dismiss
+          >
+            Dismiss
           </Button>
         </span>
       </div>
