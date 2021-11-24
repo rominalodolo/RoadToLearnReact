@@ -4,9 +4,13 @@ import "./App.css";
 import { Component } from "react";
 
 const DEFAULT_QUERY = "redux";
+const DEFAULT_HPP = '100';
+
 const PATH_BASE = "https://hn.algolia.com/api/v1";
 const PATH_SEARCH = "/search";
 const PARAM_SEARCH = "query=";
+const PARAM_PAGE = "page=";
+const PARAM_HPP = 'hitsPerPage=';
 
 const isSearched = (searchTerm) => (item) =>
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -29,11 +33,12 @@ class App extends Component {
 
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
-    event.preventDefault()
+    event.preventDefault();
   }
 
-  fetchSearchTopStories(searchTerm) {
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+  fetchSearchTopStories(searchTerm, page = 0) {
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${
+      page}&${PARAM_HPP}${DEFAULT_HPP}`)
       .then((response) => response.json())
       .then((result) => this.setSearchTopStories(result))
       .catch((error) => error);
@@ -59,6 +64,7 @@ class App extends Component {
 
   render() {
     const { searchTerm, result } = this.state;
+    const page = (result && result.page) || 0;
 
     return (
       <div className="page">
@@ -72,11 +78,15 @@ class App extends Component {
           </Search>
         </div>
         {result ? (
-          <Table
-          list={result.hits}
-          onDismiss={this.onDismiss}
-          />
+          <Table list={result.hits} onDismiss={this.onDismiss} />
         ) : null}
+        <div className="interactions">
+          <Button
+            onClick={() => this.fetchSearchTopStories(searchTerm, page + 1)}
+          >
+            More
+          </Button>
+        </div>
       </div>
     );
   }
@@ -93,7 +103,7 @@ const Search = ({ value, onChange, onSubmit, children }) => (
 
 const Table = ({ list, onDismiss }) => (
   <div className="table">
-    {list.map(item => 
+    {list.map((item) => (
       <div key={item.objectID} className="table-row">
         <span style={{ width: "40%" }}>
           <a href={item.url}>{item.title}</a>
@@ -110,7 +120,7 @@ const Table = ({ list, onDismiss }) => (
           </Button>
         </span>
       </div>
-    )}
+    ))}
   </div>
 );
 
