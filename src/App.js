@@ -2,6 +2,8 @@ import "./App.css";
 // import Users from "./components/Users.js";
 // import Image from "./components/Image.js";
 import { Component } from "react";
+import Search from './components/Split/Search';
+import Table from "./components/Split/table"
 
 const list = [
   {
@@ -30,11 +32,8 @@ const list = [
   },
 ];
 
-function isSearched(searchTerm) {
-    return function(item) {
-      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    }
-  }
+const isSearched = (searchTerm) => (item) =>
+  item.title.toLowerCase().includes(searchTerm.toLowerCase())
 
 class App extends Component {
   constructor(props) {
@@ -51,7 +50,6 @@ class App extends Component {
 
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
-  
   }
 
   onDismiss(id) {
@@ -63,28 +61,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <form>
-          <input type="text" onChange={this.onSearchChange}/>
-        </form>
-        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item => {
-          const onHandleDismiss = () => this.onDismiss(item.objectID);
-
-          return (
-            <div key={item.objectID}>
-              <span>
-                <a href={item.url}>{item.title}</a>
-              </span>
-              <span>{item.author}</span>
-              <span>{item.num_comments}</span>
-              <span>{item.points}</span>
-              <span>
-                <button onClick={onHandleDismiss} type="button">
-                  Dismiss
-                </button>
-              </span>
-            </div>
-          );
-        })}
+        <Search 
+          value={searchTerm}
+          onChange={this.onSearchChange}
+        />
+        <Table 
+          list={list}
+          pattern={searchTerm}
+          onDismiss={this.onDismiss}
+        />
       </div>
     );
   }

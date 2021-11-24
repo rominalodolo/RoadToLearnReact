@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App2 from './App2';
+import App from './App';
 // import Clock from './components/Clock';
 // import NumberList from './components/NumberList';
 // import Users from './components/Users';
@@ -10,7 +10,7 @@ import App2 from './App2';
 // const numbers = [1, 2, 3, 4, 5];
 
 ReactDOM.render(
-    <App2 />,
+    <App />,
   document.getElementById('root')
 );
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Search = () => {
-  const { value, onChange, children } = this.props;
+  const { value, onChange} = this.props;
   return (
     <>
       <form>
