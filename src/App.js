@@ -29,6 +29,7 @@ class App extends Component {
 
   onSearchChange(event) {
     this.setState({ searchTerm: event.target.value });
+    event.preventDefault()
   }
 
   fetchSearchTopStories(searchTerm) {
@@ -90,9 +91,9 @@ const Search = ({ value, onChange, onSubmit, children }) => (
   </form>
 );
 
-const Table = ({ list, pattern, onDismiss }) => (
+const Table = ({ list, onDismiss }) => (
   <div className="table">
-    {list.filter(isSearched(pattern)).map((item) => (
+    {list.map(item => 
       <div key={item.objectID} className="table-row">
         <span style={{ width: "40%" }}>
           <a href={item.url}>{item.title}</a>
@@ -109,7 +110,7 @@ const Table = ({ list, pattern, onDismiss }) => (
           </Button>
         </span>
       </div>
-    ))}
+    )}
   </div>
 );
 
