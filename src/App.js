@@ -2,8 +2,8 @@ import "./App.css";
 // import Users from "./components/Users.js";
 // import Image from "./components/Image.js";
 import { Component } from "react";
-import Search from './components/Split/Search';
-import Table from "./components/Split/table"
+import Search from './components/Split/Search.js';
+import Table from "./components/Split/table.js"
 
 const list = [
   {
