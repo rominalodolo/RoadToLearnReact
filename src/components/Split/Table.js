@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Table = () => {
+const Table = () => { 
+    const { list, pattern, onDismiss } = this.props;
     return (
         <div>
             {list.filter(isSearched(pattern)).map((item) => (
