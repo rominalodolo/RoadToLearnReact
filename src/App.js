@@ -1,19 +1,17 @@
 import "./App.css";
-// import Users from "./components/Users.js";
-// import Image from "./components/Image.js";
 import { Component } from "react";
 
 const DEFAULT_QUERY = "redux";
-const DEFAULT_HPP = '100';
+const DEFAULT_HPP = "100";
 
 const PATH_BASE = "https://hn.algolia.com/api/v1";
 const PATH_SEARCH = "/search";
 const PARAM_SEARCH = "query=";
 const PARAM_PAGE = "page=";
-const PARAM_HPP = 'hitsPerPage=';
+const PARAM_HPP = "hitsPerPage=";
 
-const isSearched = (searchTerm) => (item) =>
-  item.title.toLowerCase().includes(searchTerm.toLowerCase());
+// const isSearched = (searchTerm) => (item) =>
+//   item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class App extends Component {
   constructor(props) {
@@ -37,11 +35,21 @@ class App extends Component {
   }
 
   fetchSearchTopStories(searchTerm, page = 0) {
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${
-      page}&${PARAM_HPP}${DEFAULT_HPP}`)
+    fetch(
+      `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`
+    )
       .then((response) => response.json())
       .then((result) => this.setSearchTopStories(result))
       .catch((error) => error);
+  }
+
+  setSearchTopStories(result) {
+    const { hits, page } = result;
+    const oldHits = page !== 0 ? this.state.result.hits : [];
+    const updatedHits = [...oldHits, ...hits];
+    this.setState({
+      result: { hits: updatedHits, page },
+    });
   }
 
   onSearchSubmit() {
