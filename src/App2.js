@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 // component manages itself without external API
 // not useful for real applications,
