@@ -19,6 +19,7 @@ class App extends Component {
 
     this.state = {
       result: null,
+      searchKey: '',
       searchTerm: DEFAULT_QUERY,
     };
 
