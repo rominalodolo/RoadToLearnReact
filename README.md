@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# My First React Website Project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Netlify Deployment 
 
-In the project directory, you can run:
+This is a link for the official website created with React, Bootstrap and Netlify: [Hacker News Site: Classwork](https://hackernews-classwork.netlify.app) 
 
 ### `npm start`
 
